@@ -80,11 +80,11 @@ public class GameManager : MonoBehaviour
                         {
                             Debug.Log("Pico disminuido " + kvp.Value);
                             dbPeakDif = dbPeak - kvp.Value;
-                            dbPeak = kvp.Value;
                         }
                         else
                         {
-                            Debug.Log("Pico mantenido.");
+                            Debug.Log("Pico mantenido: " + kvp.Value);
+                            dbPeak = kvp.Value;
                         }
                     }
                     else if (kvp.Key.Equals("Media aritmética de dB:"))
@@ -99,12 +99,11 @@ public class GameManager : MonoBehaviour
                         {
                             Debug.Log("Media disminuida: " + kvp.Value);
                             dbAvgDif = -1f;
-                            dbAvg = kvp.Value;
-                            boardScript.SetupScene(level);
                         }
                         else
                         {
-                            Debug.Log("Media mantenido.");
+                            Debug.Log("Media mantenida: " + kvp.Value);
+                            dbAvg = kvp.Value;
                         }
                     }
                     else
@@ -119,47 +118,39 @@ public class GameManager : MonoBehaviour
 
                 if (nota)
                 {
-                    //Han aumentado el pico y la media.
+                    //La nota es Sol3
                     boardScript.SetupSceneModifyingFoodAndEnemies(level, 5, 5);
                 }
                 else if (dbPeakDif < 0 && dbAvgDif == 0)
                 {
-                    //El pico ha disminuido
                     boardScript.SetupSceneModifyingEnemies(level, 4);
                 }
                 else if (dbPeakDif > 0 && dbAvgDif == 0)
                 {
-                    //El pico ha aumentado
                     boardScript.SetupSceneModifyingEnemies(level, 0);
                 }
                 else if (dbPeakDif == 0 && dbAvgDif > 0)
                 {
-                    //La media ha aumentado
                     boardScript.SetupSceneModifyingFood(level, 4);
                 }
                 else if (dbPeakDif == 0 && dbAvgDif < 0)
                 {
-                    //La media ha disminuido
                     boardScript.SetupSceneModifyingFood(level, 0);
                 }
                 else if (dbPeakDif > 0 && dbAvgDif > 0)
                 {
-                    //El pico ha aumentado y la media también
-                    boardScript.SetupSceneModifyingFoodAndEnemies(level, 4, 0);
+                    boardScript.SetupSceneModifyingFoodAndEnemies(level, 0, 4);
                 }
                 else if (dbPeakDif < 0 && dbAvgDif < 0)
                 {
-                    //El pico ha disminuido y la media también
-                    boardScript.SetupSceneModifyingFoodAndEnemies(level, 0, 4);
+                    boardScript.SetupSceneModifyingFoodAndEnemies(level, 4, 0);
                 }
                 else if (dbPeakDif > 0 && dbAvgDif < 0)
                 {
-                    //El pico ha aumentado y la media ha disminuido
                     boardScript.SetupSceneModifyingFoodAndEnemies(level, 0, 0);
                 }
                 else if (dbPeakDif < 0 && dbAvgDif > 0)
                 {
-                    //El pico ha disminuido y la media ha aumentado
                     boardScript.SetupSceneModifyingFoodAndEnemies(level, 4, 4);
                 }
                 else

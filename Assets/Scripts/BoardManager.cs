@@ -79,7 +79,6 @@ public class BoardManager : MonoBehaviour
 	void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
 	{
 		int objectCount = Random.Range(minimum, maximum + 1);
-		
 		for (int i = 0; i< objectCount; i++)
 		{
 			Vector3 randomPosition = RandomPosition();
@@ -110,7 +109,7 @@ public class BoardManager : MonoBehaviour
 		LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
 		LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
 
-		LayoutObjectAtRandom(enemyTiles, enemiesModifier, enemiesModifier);
+		LayoutObjectAtRandom(enemyTiles, enemiesModifier, enemiesModifier-1);
 		Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
 	}
 
@@ -120,7 +119,7 @@ public class BoardManager : MonoBehaviour
 		InitialiseList();
 
 		LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
-		LayoutObjectAtRandom(foodTiles, foodModifier, foodModifier);
+		LayoutObjectAtRandom(foodTiles, foodModifier, foodModifier-1);
 
 		int enemyCount = (int)Mathf.Log(level, 2f);
 
@@ -134,9 +133,9 @@ public class BoardManager : MonoBehaviour
 		InitialiseList();
 
 		LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
-		LayoutObjectAtRandom(foodTiles, foodModifier, foodModifier);
+		LayoutObjectAtRandom(foodTiles, foodModifier, foodModifier-1);
 
-		LayoutObjectAtRandom(enemyTiles, enemiesModifier, enemiesModifier);
+		LayoutObjectAtRandom(enemyTiles, enemiesModifier, enemiesModifier-1);
 		Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
 	}
 }
